@@ -11,14 +11,14 @@ export default function ProcessDiagram({
 }: Props) {
   if (!process) {
     return (
-      <div className="border rounded p-4 h-[600px]">
+      <div className="border rounded p-4 h-150">
         Upload a process file
       </div>
     );
   }
 
   return (
-    <div className="border rounded p-4 h-[600px] overflow-auto">
+    <div className="border rounded p-4 h-150 overflow-auto">
       <pre>
         {JSON.stringify(process, null, 2)}
       </pre>
