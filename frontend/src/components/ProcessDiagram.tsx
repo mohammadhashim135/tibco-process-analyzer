@@ -18,7 +18,7 @@ interface Props {
 export default function ProcessDiagram({ process }: Props) {
   if (!process) {
     return (
-      <div className="h-[700px] flex items-center justify-center rounded-2xl border border-slate-700 bg-slate-950 text-slate-400 text-lg shadow-xl">
+      <div className="h-175 flex items-center justify-center rounded-2xl border border-slate-700 bg-slate-950 text-slate-400 text-lg shadow-xl">
         Upload a process file
       </div>
     );
@@ -142,7 +142,7 @@ export default function ProcessDiagram({ process }: Props) {
   }));
 
   return (
-    <div className="h-[700px] overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 shadow-2xl">
+    <div className="h-175 overflow-hidden rounded-2xl border border-slate-700 bg-slate-950 shadow-2xl">
       <ReactFlow
         nodes={nodes}
         edges={edges}
