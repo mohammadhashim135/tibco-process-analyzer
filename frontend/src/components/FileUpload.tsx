@@ -2,8 +2,14 @@
 
 import { ChangeEvent } from "react";
 import { api } from "@/lib/api";
+import { ProcessModel } from "@/types/process";
 
-export default function FileUpload() {
+
+interface Props {
+  onSuccess: (process: ProcessModel) => void;
+}
+
+export default function FileUpload({ onSuccess }: Props) {
   const handleFileChange = async (
     event: ChangeEvent<HTMLInputElement>
   ) => {
@@ -17,8 +23,7 @@ export default function FileUpload() {
     try {
       const response = await api.post("/process/upload", formData);
 
-      console.log(response.data);
-      alert("Process parsed successfully!");
+      onSuccess(response.data.data);
     } catch (error) {
       console.error(error);
       alert("Upload failed");
