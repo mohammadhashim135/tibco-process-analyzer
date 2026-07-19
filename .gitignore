@@ -1,0 +1,29 @@
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Node modules
+**/node_modules/
+
+# Build output
+**/dist/
+**/.next/
+**/coverage/
+
+# Runtime uploads
+backend/uploads/
+
+# IDE
+.vscode/
+.idea/
+
+# TypeScript
+*.tsbuildinfo
