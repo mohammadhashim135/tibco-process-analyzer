@@ -1,7 +1,9 @@
 import { parseProcess } from "./parser/parseProcess.js";
 
 async function main() {
-  await parseProcess("../samples/MainProcess.process");
+  const result = await parseProcess("../samples/MainProcess.process");
+
+  console.log(JSON.stringify(result, null, 2));
 }
 
 main();
