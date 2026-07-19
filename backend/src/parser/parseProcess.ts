@@ -33,6 +33,21 @@ export async function parseProcess(
       : [processDefinition["pd:group"]]
     : [];
 
+  for (const group of rawGroups) {
+    const groupActivities = group["pd:activity"]
+      ? Array.isArray(group["pd:activity"])
+        ? group["pd:activity"]
+        : [group["pd:activity"]]
+      : [];
+
+    activities.push(
+      ...groupActivities.map((activity: any) => ({
+        name: activity["@_name"],
+        type: activity["pd:type"],
+      }))
+    );
+  }
+
   const groups = rawGroups.map((group: any) => ({
     name: group["@_name"],
     type: group["pd:type"],
