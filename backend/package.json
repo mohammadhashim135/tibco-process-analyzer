@@ -8,6 +8,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "parse": "tsx src/testParser.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -19,11 +20,13 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "fast-xml-parser": "^5.10.1",
+    "fs-extra": "^11.3.6",
     "multer": "^2.2.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/fs-extra": "^11.0.4",
     "@types/multer": "^2.2.0",
     "@types/node": "^26.1.1",
     "tsx": "^4.23.1",
