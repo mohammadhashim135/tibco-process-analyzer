@@ -23,7 +23,7 @@ export default function Home() {
     useState<Analysis | null>(null);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-100">
+    <main className="min-h-screen bg-linear-to-b from-slate-50 via-white to-slate-100">
       <div className="mx-auto max-w-7xl px-6 py-10">
 
         {/* Hero */}

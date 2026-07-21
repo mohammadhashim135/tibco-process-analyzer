@@ -64,7 +64,7 @@ export default function FileUpload({
   };
 
   return (
-    <div className="rounded-3xl border-2 border-dashed border-slate-300 bg-gradient-to-b from-slate-50 to-white p-10 transition-all hover:border-emerald-400">
+    <div className="rounded-3xl border-2 border-dashed border-slate-300 bg-linear-to-b from-slate-50 to-white p-10 transition-all hover:border-emerald-400">
 
       <div className="flex flex-col items-center text-center">
 
