@@ -75,7 +75,9 @@ Return ONLY valid JSON in exactly this format:
 Instructions:
 
 1. Summary
-- Summarize the process in 2-3 concise sentences.
+- Summarize the process in 2-3 concise sentences based only on the parsed process data.
+- Describe only the workflow, activities, transitions, process variables, groups, error handlers, and external integrations that are explicitly present.
+- Do not infer functionality or business intent from the process name, file name, or folder structure. Base the analysis solely on the parsed process definition.
 
 2. Complexity
 Determine the complexity using:
@@ -96,9 +98,9 @@ Classify as:
 Explain why the chosen complexity level is appropriate.
 
 4. SAP CPI Design
-Recommend an equivalent SAP CPI implementation.
+Recommend an equivalent SAP CPI implementation based strictly on the parsed process.
 
-The recommendation may include only relevant components such as:
+The recommendation may include the following SAP CPI components only when they are required by the parsed process:
 - HTTPS Sender
 - HTTPS Receiver
 - SOAP
@@ -122,7 +124,14 @@ The recommendation may include only relevant components such as:
 
 Rules:
 - Base your analysis ONLY on the supplied process.
+- If the parsed process contains no business activities, external integrations, messaging components, or adapters, recommend a minimal SAP CPI Integration Flow.
+- For such minimal processes, use only:
+  - Flow: "Minimal Integration Flow"
+  - Steps: ["Start", "End"]
+  - Adapters: []
+- Do NOT recommend HTTPS, SOAP, JMS, Mail, SFTP, OData, IDoc, or any other adapter unless it is clearly implied by the parsed process.
 - Do NOT invent TIBCO activities that are not present.
+- Do not infer functionality from the process name, filename, or folder structure. Base the analysis only on the parsed process definition.
 - If information is missing, make reasonable migration recommendations and clearly treat them as recommendations rather than facts.
 - Mention only SAP CPI components that are actually useful for this process.
 - Return ONLY valid JSON.
