@@ -339,7 +339,7 @@ Rather than sending raw XML directly to the language model, the application firs
 
 ---
 
-# Technology Choices
+# ⚙️ Technology Choices
 
 ## React Flow
 
@@ -363,24 +363,31 @@ Selected for AI analysis because it provides:
 
 # 📸 Screenshots
 
-## Upload Process
+## Empty Dashboard
 
-![Upload Process](Assets/upload.png)
+Initial application state before a BusinessWorks process is uploaded.
 
-## Workflow Visualization
-
-![Workflow Visualization](Assets/workflow.png)
-
-## AI Analysis
-
-![AI Analysis](Assets/analysis.png)
-
-## Complete Dashboard
-
-![Complete Dashboard](Assets/dashboard.png)
+![Empty Dashboard](Assets/dashboard.png)
 
 ---
-# 🤝 **Contributing** 
+
+## Process Upload
+
+Upload a TIBCO BusinessWorks `.process` file to parse and analyze the workflow.
+
+![Process Upload](Assets/upload.png)
+
+---
+
+## Workflow Visualization & Migration Report
+
+Interactive workflow diagram with the generated migration report, including process summary, complexity assessment, and SAP CPI migration recommendations.
+
+![Workflow Visualization & Migration Report](Assets/workflow-analysis.png)
+
+---
+# 🤝 Contributing
+
 Contributions are welcome! If you’d like to improve feel free to fork the repo and submit a pull request.
 
 ## **Steps to Contribute:**
@@ -405,7 +412,5 @@ git push origin feature-branch
 ```
 ## **5. Open a Pull Request**
 ---
-# **License** 📜
-This project is licensed under the MIT License.
 
 💡 Developed with ❤️ by [Mohammad Hashim](https://github.com/mohammadhashim135)
