@@ -226,14 +226,20 @@ export default function ProcessDiagram({
       </div>
 
       {/* Diagram */}
-      <div className="h-155 bg-slate-50">
+      <div className="h-225 bg-slate-50">
         <ReactFlow
           nodes={nodes}
           edges={edges}
           fitView
           fitViewOptions={{
-            padding: 0.3,
+            padding: 0.8,
+            includeHiddenNodes: true,
           }}
+          minZoom={0.2}
+          maxZoom={2}
+          panOnDrag
+          panOnScroll
+          zoomOnScroll
           defaultEdgeOptions={{
             type: "smoothstep",
             animated: false,

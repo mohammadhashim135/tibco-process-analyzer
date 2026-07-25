@@ -53,6 +53,38 @@ export async function parseProcess(
     type: group["pd:type"],
   }));
 
+  const rawErrorHandlers = processDefinition["pd:errorHandlers"]?.["pd:errorHandler"]
+  ? Array.isArray(processDefinition["pd:errorHandlers"]["pd:errorHandler"])
+    ? processDefinition["pd:errorHandlers"]["pd:errorHandler"]
+    : [processDefinition["pd:errorHandlers"]["pd:errorHandler"]]
+  : [];
+
+for (const handler of rawErrorHandlers) {
+  const handlerActivities = handler["pd:activity"]
+    ? Array.isArray(handler["pd:activity"])
+      ? handler["pd:activity"]
+      : [handler["pd:activity"]]
+    : [];
+
+  activities.push(
+    ...handlerActivities.map((activity: any) => ({
+      name: activity["@_name"],
+      type: activity["pd:type"],
+    }))
+  );
+}
+
+const rawVariables = processDefinition["pd:processVariables"]?.["pd:processVariable"]
+  ? Array.isArray(processDefinition["pd:processVariables"]["pd:processVariable"])
+    ? processDefinition["pd:processVariables"]["pd:processVariable"]
+    : [processDefinition["pd:processVariables"]["pd:processVariable"]]
+  : [];
+
+const variables = rawVariables.map((variable: any) => ({
+  name: variable["@_name"],
+  type: variable["pd:type"],
+}));
+
   const rawTransitions = processDefinition["pd:transition"]
     ? Array.isArray(processDefinition["pd:transition"])
       ? processDefinition["pd:transition"]
@@ -72,7 +104,9 @@ export async function parseProcess(
     activities,
     groups,
     transitions,
-    variables: [],
-    errorHandlers: [],
+    variables,
+    errorHandlers: rawErrorHandlers.map((handler: any) => ({
+    name: handler["@_name"],
+      })),
   };
 }

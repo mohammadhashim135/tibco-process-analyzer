@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<pd:ProcessDefinition
+    xmlns:pd="http://xmlns.tibco.com/bw/process/2003"
+    name="CompleteSample.process">
+
+    <pd:name>CompleteSample.process</pd:name>
+    <pd:startName>HTTP Receiver</pd:startName>
+    <pd:endName>End</pd:endName>
+
+    <!-- Starter -->
+
+    <pd:starter name="HTTP Receiver">
+        <pd:type>com.tibco.plugin.http.HTTPReceiverActivity</pd:type>
+    </pd:starter>
+
+    <!-- Process Variables -->
+
+    <pd:processVariables>
+
+        <pd:processVariable name="customerId">
+            <pd:type>string</pd:type>
+        </pd:processVariable>
+
+        <pd:processVariable name="amount">
+            <pd:type>number</pd:type>
+        </pd:processVariable>
+
+        <pd:processVariable name="status">
+            <pd:type>string</pd:type>
+        </pd:processVariable>
+
+    </pd:processVariables>
+
+    <!-- Activities -->
+
+    <pd:activity name="Validate Request">
+        <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+    </pd:activity>
+
+    <pd:activity name="Write File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+    </pd:activity>
+
+    <pd:activity name="Publish JMS">
+        <pd:type>com.tibco.plugin.jms.JMSQueueSenderActivity</pd:type>
+    </pd:activity>
+
+    <pd:activity name="Send HTTP Response">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+    </pd:activity>
+
+    <!-- Group -->
+
+    <pd:group name="ProcessOrders">
+
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+
+        <pd:activity name="Transform Order">
+            <pd:type>com.tibco.pe.core.AssignActivity</pd:type>
+        </pd:activity>
+
+        <pd:activity name="Save Audit">
+            <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        </pd:activity>
+
+    </pd:group>
+
+    <!-- Error Handler -->
+
+    <pd:errorHandlers>
+
+        <pd:errorHandler name="Global Error Handler">
+
+            <pd:activity name="Catch Exception">
+                <pd:type>com.tibco.pe.core.CatchActivity</pd:type>
+            </pd:activity>
+
+            <pd:activity name="Log Error">
+                <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+            </pd:activity>
+
+        </pd:errorHandler>
+
+    </pd:errorHandlers>
+
+    <!-- Transitions -->
+
+    <pd:transition>
+
+        <pd:from>HTTP Receiver</pd:from>
+        <pd:to>Validate Request</pd:to>
+        <pd:conditionType>always</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Validate Request</pd:from>
+        <pd:to>ProcessOrders</pd:to>
+        <pd:conditionType>xpath</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Validate Request</pd:from>
+        <pd:to>Write File</pd:to>
+        <pd:conditionType>otherwise</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>ProcessOrders</pd:from>
+        <pd:to>Publish JMS</pd:to>
+        <pd:conditionType>always</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Publish JMS</pd:from>
+        <pd:to>Send HTTP Response</pd:to>
+        <pd:conditionType>always</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Write File</pd:from>
+        <pd:to>Send HTTP Response</pd:to>
+        <pd:conditionType>always</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Validate Request</pd:from>
+        <pd:to>Catch Exception</pd:to>
+        <pd:conditionType>error</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Catch Exception</pd:from>
+        <pd:to>Log Error</pd:to>
+        <pd:conditionType>always</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Log Error</pd:from>
+        <pd:to>End</pd:to>
+        <pd:conditionType>always</pd:conditionType>
+
+    </pd:transition>
+
+    <pd:transition>
+
+        <pd:from>Send HTTP Response</pd:from>
+        <pd:to>End</pd:to>
+        <pd:conditionType>always</pd:conditionType>
+
+    </pd:transition>
+
+</pd:ProcessDefinition>
